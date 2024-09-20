@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D3DA78F32C9DE00100F759CE /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DA78F22C9DE00100F759CE /* Model.swift */; };
+		D3DA78F52C9DE09100F759CE /* MemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DA78F42C9DE09100F759CE /* MemoTableViewCell.swift */; };
+		D3DA78F72C9DE18E00F759CE /* MemoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DA78F62C9DE18E00F759CE /* MemoDetailViewController.swift */; };
 		D3DABAF92C8F0E7E00299781 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DABAF82C8F0E7E00299781 /* AppDelegate.swift */; };
 		D3DABAFB2C8F0E7E00299781 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DABAFA2C8F0E7E00299781 /* SceneDelegate.swift */; };
 		D3DABAFD2C8F0E7E00299781 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DABAFC2C8F0E7E00299781 /* ViewController.swift */; };
@@ -15,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D3DA78F22C9DE00100F759CE /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		D3DA78F42C9DE09100F759CE /* MemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTableViewCell.swift; sourceTree = "<group>"; };
+		D3DA78F62C9DE18E00F759CE /* MemoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDetailViewController.swift; sourceTree = "<group>"; };
 		D3DABAF52C8F0E7E00299781 /* BellMemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BellMemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3DABAF82C8F0E7E00299781 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3DABAFA2C8F0E7E00299781 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +63,9 @@
 				D3DABAF82C8F0E7E00299781 /* AppDelegate.swift */,
 				D3DABAFA2C8F0E7E00299781 /* SceneDelegate.swift */,
 				D3DABAFC2C8F0E7E00299781 /* ViewController.swift */,
+				D3DA78F22C9DE00100F759CE /* Model.swift */,
+				D3DA78F62C9DE18E00F759CE /* MemoDetailViewController.swift */,
+				D3DA78F42C9DE09100F759CE /* MemoTableViewCell.swift */,
 				D3DABB012C8F0E8000299781 /* Assets.xcassets */,
 				D3DABB032C8F0E8000299781 /* LaunchScreen.storyboard */,
 				D3DABB062C8F0E8000299781 /* Info.plist */,
@@ -134,9 +143,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3DA78F52C9DE09100F759CE /* MemoTableViewCell.swift in Sources */,
+				D3DA78F72C9DE18E00F759CE /* MemoDetailViewController.swift in Sources */,
 				D3DABAFD2C8F0E7E00299781 /* ViewController.swift in Sources */,
 				D3DABAF92C8F0E7E00299781 /* AppDelegate.swift in Sources */,
 				D3DABAFB2C8F0E7E00299781 /* SceneDelegate.swift in Sources */,
+				D3DA78F32C9DE00100F759CE /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

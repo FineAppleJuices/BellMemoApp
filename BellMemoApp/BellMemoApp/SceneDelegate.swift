@@ -9,16 +9,25 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    //ios는 윈도우가 한개임 . 아래가 그 윈도우야
     var window: UIWindow?
 
-
+//스토리보드를 지워버려서 어떻게 윈도우를 구성할지 알려줘야해. 그게 바로 아래 코드.
+    //앱델리에 씬델리 연결하기전에 윈도우 구성을 어떻게 할거냐
+    //아래 화면에서 시작함
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
+
         window = UIWindow(windowScene: windowScene)
+        //어느 컨트롤러로 시작할거냐
         let viewController = ViewController()
-        window?.rootViewController = viewController
+        let navigationController = UINavigationController(rootViewController: viewController)
+        
+        // 네비게이션 컨트롤러를 윈도우의 루트로 설정
+        window?.rootViewController = navigationController
+        //root 붙어있으면 무조건 시작점
         window?.makeKeyAndVisible()
+        //윈도우를 보이는 상태로 구성해줘
     }
     
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
