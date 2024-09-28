@@ -25,6 +25,14 @@ class ViewController: UIViewController {
         // 네비게이션 바 설정
         self.title = "메모 앱 숙제 리스트"
         view.backgroundColor = .white
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(addButtonTapped)
+        )
+        
+        
         // 테이블 뷰 설정
         tableView.dataSource = self
         tableView.delegate = self
@@ -43,6 +51,14 @@ class ViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    @objc private func addButtonTapped() {
+        let addMemoVC = AddMemoViewController()
+        addMemoVC.delegate = self  // Delegate 설정
+        let navController = UINavigationController(rootViewController: addMemoVC)
+        navController.modalPresentationStyle = .fullScreen
+        present(navController, animated: true, completion: nil)
     }
 }
 
@@ -83,5 +99,12 @@ extension ViewController: UITableViewDelegate {
         let detailViewController = MemoDetailViewController()
         detailViewController.memo = selectedMemo
         navigationController?.pushViewController(detailViewController, animated: true)
+    }
+}
+
+extension ViewController: AddMemoViewControllerDelegate {
+    func didAddMemo(_ memo: Memo) {
+        memos.append(memo)
+        tableView.reloadData()
     }
 }

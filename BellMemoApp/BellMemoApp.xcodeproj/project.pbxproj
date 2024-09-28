@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D3D185DB2CA84045000AACF7 /* AddMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D185DA2CA84045000AACF7 /* AddMemoViewController.swift */; };
 		D3DA78F32C9DE00100F759CE /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DA78F22C9DE00100F759CE /* Model.swift */; };
 		D3DA78F52C9DE09100F759CE /* MemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DA78F42C9DE09100F759CE /* MemoTableViewCell.swift */; };
 		D3DA78F72C9DE18E00F759CE /* MemoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DA78F62C9DE18E00F759CE /* MemoDetailViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D3D185DA2CA84045000AACF7 /* AddMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoViewController.swift; sourceTree = "<group>"; };
 		D3DA78F22C9DE00100F759CE /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		D3DA78F42C9DE09100F759CE /* MemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTableViewCell.swift; sourceTree = "<group>"; };
 		D3DA78F62C9DE18E00F759CE /* MemoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDetailViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				D3DABAF82C8F0E7E00299781 /* AppDelegate.swift */,
 				D3DABAFA2C8F0E7E00299781 /* SceneDelegate.swift */,
 				D3DABAFC2C8F0E7E00299781 /* ViewController.swift */,
+				D3D185DA2CA84045000AACF7 /* AddMemoViewController.swift */,
 				D3DA78F22C9DE00100F759CE /* Model.swift */,
 				D3DA78F62C9DE18E00F759CE /* MemoDetailViewController.swift */,
 				D3DA78F42C9DE09100F759CE /* MemoTableViewCell.swift */,
@@ -147,6 +150,7 @@
 				D3DA78F72C9DE18E00F759CE /* MemoDetailViewController.swift in Sources */,
 				D3DABAFD2C8F0E7E00299781 /* ViewController.swift in Sources */,
 				D3DABAF92C8F0E7E00299781 /* AppDelegate.swift in Sources */,
+				D3D185DB2CA84045000AACF7 /* AddMemoViewController.swift in Sources */,
 				D3DABAFB2C8F0E7E00299781 /* SceneDelegate.swift in Sources */,
 				D3DA78F32C9DE00100F759CE /* Model.swift in Sources */,
 			);
