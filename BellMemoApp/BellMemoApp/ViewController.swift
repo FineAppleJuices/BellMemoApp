@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         
         // 네비게이션 바 설정
         self.title = "메모 앱 숙제 리스트"
-        
+        view.backgroundColor = .white
         // 테이블 뷰 설정
         tableView.dataSource = self
         tableView.delegate = self
