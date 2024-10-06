@@ -39,6 +39,12 @@ class AddMemoViewController: UIViewController {
         return textView
     }()
     
+    // 카테고리 선택을 위한 UIPickerView
+    private let categoryPickerView = UIPickerView()
+    
+    // 선택된 카테고리 (기본값 설정)
+    var selectedCategory: Category = .work
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -64,15 +70,27 @@ class AddMemoViewController: UIViewController {
             target: self,
             action: #selector(saveButtonTapped)
         )
-
+        
+        // UIPickerView 설정
+        categoryPickerView.delegate = self
+        categoryPickerView.dataSource = self
+        categoryPickerView.translatesAutoresizingMaskIntoConstraints = false
+        
         // 서브뷰 추가
+        view.addSubview(categoryPickerView)
         view.addSubview(titleTextField)
         view.addSubview(contentTextView)
-
+        
         // 오토레이아웃 설정
         NSLayoutConstraint.activate([
+            // categoryPickerView 제약 조건
+            categoryPickerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            categoryPickerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            categoryPickerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            categoryPickerView.heightAnchor.constraint(equalToConstant: 100),
+
             // titleTextField 제약 조건
-            titleTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            titleTextField.topAnchor.constraint(equalTo: categoryPickerView.bottomAnchor, constant: 10),
             titleTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             titleTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
@@ -83,10 +101,19 @@ class AddMemoViewController: UIViewController {
             contentTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
         ])
 
-        // 편집 모드일 경우 기존 메모의 내용을 표시
         if isEditingMemo, let memo = memoToEdit {
             titleTextField.text = memo.title
             contentTextView.text = memo.content
+            selectedCategory = memo.category
+
+            if let categoryIndex = Category.allCases.firstIndex(of: memo.category) {
+                categoryPickerView.selectRow(categoryIndex, inComponent: 0, animated: false)
+            }
+        } else {
+            // 새 메모 추가 시 기본 카테고리 선택
+            if let categoryIndex = Category.allCases.firstIndex(of: selectedCategory) {
+                categoryPickerView.selectRow(categoryIndex, inComponent: 0, animated: false)
+            }
         }
     }
     
@@ -108,15 +135,42 @@ class AddMemoViewController: UIViewController {
             // 편집 모드인 경우 기존 메모를 업데이트
             memoToEdit?.title = title
             memoToEdit?.content = content
+            memoToEdit?.category = selectedCategory
             if let index = memoIndex, let updatedMemo = memoToEdit {
                 delegate?.didEditMemo(updatedMemo, at: index)
             }
         } else {
             // 새 메모 추가
-            let newMemo = Memo(title: title, content: content)
+            let newMemo = Memo(title: title, content: content, category: selectedCategory)
             delegate?.didAddMemo(newMemo)
         }
 
         dismiss(animated: true, completion: nil)
     }
 }
+
+// MARK: - UIPickerViewDataSource
+
+extension AddMemoViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return Category.allCases.count
+    }
+}
+
+// MARK: - UIPickerViewDelegate
+
+extension AddMemoViewController: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return Category.allCases[row].rawValue
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedCategory = Category.allCases[row]
+    }
+}
+//  Created by Byeol Kim on 9/28/24.
+//

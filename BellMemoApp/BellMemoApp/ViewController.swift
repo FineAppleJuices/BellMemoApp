@@ -4,6 +4,7 @@
 //
 //  Created by Byeol Kim on 9/9/24.
 //
+
 import UIKit
 
 class ViewController: UIViewController {
@@ -13,14 +14,16 @@ class ViewController: UIViewController {
     
     // Memo 배열 (모델 역할)
     var memos: [Memo] = [
-        Memo(title: "1주차 숙제", content: "어렵다"),
-        Memo(title: "2주차 숙제", content: "어려울까?"),
-        Memo(title: "3주차 숙제", content: "어렵겠지")
+        Memo(title: "1주차 숙제", content: "어렵다", category: .work),
+        Memo(title: "2주차 숙제", content: "어려울까?", category: .personal),
+        Memo(title: "3주차 숙제", content: "어렵겠지", category: .ideas)
     ]
+    var categorizedMemos: [Category: [Memo]] = [:]
+    var categories: [Category] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        categorizeMemos()
         // 네비게이션 바 설정
         self.title = "메모 앱 숙제 리스트"
         view.backgroundColor = .white
@@ -49,6 +52,11 @@ class ViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    func categorizeMemos() {
+        categorizedMemos = Dictionary(grouping: memos, by: { $0.category })
+        categories = categorizedMemos.keys.sorted { $0.rawValue < $1.rawValue }
     }
     
     @objc private func addButtonTapped() {
@@ -84,23 +92,40 @@ class ViewController: UIViewController {
     
     // 메모 삭제 처리 메서드
     func deleteMemo(at indexPath: IndexPath) {
-        // 데이터 소스에서 메모 삭제
-        memos.remove(at: indexPath.row)
-        // 테이블 뷰에서 행 삭제
-        tableView.deleteRows(at: [indexPath], with: .automatic)
+        let category = categories[indexPath.section]
+        if var memosInCategory = categorizedMemos[category] {
+            let memoToDelete = memosInCategory[indexPath.row]
+            
+            // 전체 memos 배열에서 삭제할 메모의 인덱스를 찾음
+            if let indexInMemos = memos.firstIndex(where: { $0.id == memoToDelete.id }) {
+                memos.remove(at: indexInMemos)
+                categorizeMemos()
+                tableView.reloadData()
+            }
+        }
     }
     
     // 편집 화면 표시 메서드
     func presentEditMemoViewController(at indexPath: IndexPath) {
-        let editMemoVC = AddMemoViewController()
-        editMemoVC.delegate = self  // Delegate 설정
-        editMemoVC.memoToEdit = memos[indexPath.row]
-        editMemoVC.memoIndex = indexPath.row  // 편집할 메모의 인덱스 전달
-        editMemoVC.isEditingMemo = true  // 편집 모드 표시
-        
-        let navController = UINavigationController(rootViewController: editMemoVC)
-        navController.modalPresentationStyle = .fullScreen
-        present(navController, animated: true, completion: nil)
+        let category = categories[indexPath.section]
+        if let memosInCategory = categorizedMemos[category] {
+            let memo = memosInCategory[indexPath.row]
+            
+            let editMemoVC = AddMemoViewController()
+            editMemoVC.delegate = self  // Delegate 설정
+            editMemoVC.memoToEdit = memo
+            
+            // 전체 memos 배열에서 메모의 인덱스를 찾음
+            if let indexInMemos = memos.firstIndex(where: { $0.id == memo.id }) {
+                editMemoVC.memoIndex = indexInMemos
+            }
+            
+            editMemoVC.isEditingMemo = true  // 편집 모드 표시
+            
+            let navController = UINavigationController(rootViewController: editMemoVC)
+            navController.modalPresentationStyle = .fullScreen
+            present(navController, animated: true, completion: nil)
+        }
     }
 }
 
@@ -109,24 +134,33 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
     // 섹션 수
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return categories.count
     }
     
     // 행의 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return memos.count
+        let category = categories[section]
+        return categorizedMemos[category]?.count ?? 0
     }
     
     // 각 셀에 데이터를 표시하는 부분
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "MemoCell", for: indexPath) as! MemoTableViewCell
-        
-        // 메모 데이터를 셀에 전달
-        let memo = memos[indexPath.row]
-        cell.configure(with: memo)
-        
+
+        let category = categories[indexPath.section]
+        if let memosInCategory = categorizedMemos[category] {
+            let memo = memosInCategory[indexPath.row]
+            cell.configure(with: memo)
+        }
+
         return cell
+    }
+    
+    // 섹션 헤더 제목
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let category = categories[section]
+        return category.rawValue
     }
 }
 
@@ -136,12 +170,15 @@ extension ViewController: UITableViewDelegate {
     // 셀이 선택되었을 때의 동작
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 선택된 메모를 가져옴
-        let selectedMemo = memos[indexPath.row]
-        
-        // 메모의 상세 내용을 표시하는 뷰 컨트롤러로 이동
-        let detailViewController = MemoDetailViewController()
-        detailViewController.memo = selectedMemo
-        navigationController?.pushViewController(detailViewController, animated: true)
+        let category = categories[indexPath.section]
+        if let memosInCategory = categorizedMemos[category] {
+            let selectedMemo = memosInCategory[indexPath.row]
+            
+            // 메모의 상세 내용을 표시하는 뷰 컨트롤러로 이동
+            let detailViewController = MemoDetailViewController()
+            detailViewController.memo = selectedMemo
+            navigationController?.pushViewController(detailViewController, animated: true)
+        }
     }
     
     // 스와이프 액션 추가
@@ -174,11 +211,13 @@ extension ViewController: UITableViewDelegate {
 extension ViewController: AddMemoViewControllerDelegate {
     func didAddMemo(_ memo: Memo) {
         memos.append(memo)
+        categorizeMemos()
         tableView.reloadData()
     }
     
     func didEditMemo(_ memo: Memo, at index: Int) {
         memos[index] = memo
+        categorizeMemos()
         tableView.reloadData()
     }
 }
