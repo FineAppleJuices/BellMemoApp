@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         // 네비게이션 바 설정
         self.title = "메모 앱 숙제 리스트"
         view.backgroundColor = .white
-        
+        self.tabBarItem.title = "메모"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,

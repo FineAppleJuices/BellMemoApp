@@ -18,16 +18,43 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-        window = UIWindow(windowScene: windowScene)
-        //어느 컨트롤러로 시작할거냐
-        let viewController = ViewController()
-        let navigationController = UINavigationController(rootViewController: viewController)
+//        window = UIWindow(windowScene: windowScene)
+//        //어느 컨트롤러로 시작할거냐
+//        let viewController = ViewController()
+//        let navigationController = UINavigationController(rootViewController: viewController)
+//
         
-        // 네비게이션 컨트롤러를 윈도우의 루트로 설정
-        window?.rootViewController = navigationController
-        //root 붙어있으면 무조건 시작점
+        window = UIWindow(windowScene: windowScene)
+
+        // 메모 탭 설정
+        let memoViewController = ViewController()
+        
+        
+        memoViewController.title = "메모 앱 숙제 리스트" // 네비게이션 바 제목 설정
+        let memoNavigationController = UINavigationController(rootViewController: memoViewController)
+        memoNavigationController.tabBarItem = UITabBarItem(title: "메모", image: UIImage(systemName: "note.text"), tag: 0)
+        memoNavigationController.tabBarItem.title = "메모" // 탭 바 아이템 제목 다시 설정
+    
+
+        // 설정 탭 설정
+        let settingsViewController = SettingsViewController(style: .grouped)
+        let settingsNavigationController = UINavigationController(rootViewController: settingsViewController)
+        settingsNavigationController.tabBarItem = UITabBarItem(title: "설정", image: UIImage(systemName: "gearshape"), tag: 1)
+
+        // 탭 바 컨트롤러 설정
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [memoNavigationController, settingsNavigationController]
+
+        // 탭 바 컨트롤러를 윈도우의 루트로 설정
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
-        //윈도우를 보이는 상태로 구성해줘
+        // 네비게이션 컨트롤러를 윈도우의 루트로 설정
+        
+        
+//        window?.rootViewController = navigationController
+//        //root 붙어있으면 무조건 시작점
+//        window?.makeKeyAndVisible()
+//        //윈도우를 보이는 상태로 구성해줘
     }
     
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.

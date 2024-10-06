@@ -16,6 +16,10 @@
 		D3DABAFD2C8F0E7E00299781 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DABAFC2C8F0E7E00299781 /* ViewController.swift */; };
 		D3DABB022C8F0E8000299781 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3DABB012C8F0E8000299781 /* Assets.xcassets */; };
 		D3DABB052C8F0E8000299781 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D3DABB042C8F0E8000299781 /* Base */; };
+		D3E89D3B2CB2E8B30081063B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E89D3A2CB2E8B30081063B /* SettingsViewController.swift */; };
+		D3E89D3D2CB2EC9D0081063B /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E89D3C2CB2EC9D0081063B /* NotificationSettingsViewController.swift */; };
+		D3E89D3F2CB2ECAE0081063B /* ThemeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E89D3E2CB2ECAE0081063B /* ThemeSettingsViewController.swift */; };
+		D3E89D412CB2ECC90081063B /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E89D402CB2ECC90081063B /* AppInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +34,10 @@
 		D3DABB012C8F0E8000299781 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3DABB042C8F0E8000299781 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3DABB062C8F0E8000299781 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3E89D3A2CB2E8B30081063B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		D3E89D3C2CB2EC9D0081063B /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
+		D3E89D3E2CB2ECAE0081063B /* ThemeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSettingsViewController.swift; sourceTree = "<group>"; };
+		D3E89D402CB2ECC90081063B /* AppInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,11 +77,23 @@
 				D3DA78F22C9DE00100F759CE /* Model.swift */,
 				D3DA78F62C9DE18E00F759CE /* MemoDetailViewController.swift */,
 				D3DA78F42C9DE09100F759CE /* MemoTableViewCell.swift */,
+				D3E89D422CB2ED7C0081063B /* Setting */,
 				D3DABB012C8F0E8000299781 /* Assets.xcassets */,
 				D3DABB032C8F0E8000299781 /* LaunchScreen.storyboard */,
 				D3DABB062C8F0E8000299781 /* Info.plist */,
 			);
 			path = BellMemoApp;
+			sourceTree = "<group>";
+		};
+		D3E89D422CB2ED7C0081063B /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				D3E89D3A2CB2E8B30081063B /* SettingsViewController.swift */,
+				D3E89D3C2CB2EC9D0081063B /* NotificationSettingsViewController.swift */,
+				D3E89D3E2CB2ECAE0081063B /* ThemeSettingsViewController.swift */,
+				D3E89D402CB2ECC90081063B /* AppInfoViewController.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,7 +172,11 @@
 				D3DABAF92C8F0E7E00299781 /* AppDelegate.swift in Sources */,
 				D3D185DB2CA84045000AACF7 /* AddMemoViewController.swift in Sources */,
 				D3DABAFB2C8F0E7E00299781 /* SceneDelegate.swift in Sources */,
+				D3E89D412CB2ECC90081063B /* AppInfoViewController.swift in Sources */,
 				D3DA78F32C9DE00100F759CE /* Model.swift in Sources */,
+				D3E89D3B2CB2E8B30081063B /* SettingsViewController.swift in Sources */,
+				D3E89D3D2CB2EC9D0081063B /* NotificationSettingsViewController.swift in Sources */,
+				D3E89D3F2CB2ECAE0081063B /* ThemeSettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
