@@ -9,11 +9,16 @@ import UIKit
 
 protocol AddMemoViewControllerDelegate: AnyObject {
     func didAddMemo(_ memo: Memo)
+    func didEditMemo(_ memo: Memo, at index: Int)
 }
 
 class AddMemoViewController: UIViewController {
     
     weak var delegate: AddMemoViewControllerDelegate?
+    
+    var memoToEdit: Memo?
+    var memoIndex: Int?
+    var isEditingMemo: Bool = false
     
     // UI 요소들
     private let titleTextField: UITextField = {
@@ -36,41 +41,53 @@ class AddMemoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = .white
-        
+
         // 네비게이션 바 설정
-        navigationItem.title = "메모 추가"
+        if isEditingMemo {
+            navigationItem.title = "메모 편집"
+        } else {
+            navigationItem.title = "메모 추가"
+        }
+
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             title: "취소",
             style: .plain,
             target: self,
             action: #selector(cancelButtonTapped)
         )
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "저장",
+            title: isEditingMemo ? "확인" : "저장",
             style: .done,
             target: self,
             action: #selector(saveButtonTapped)
         )
-        
+
         // 서브뷰 추가
         view.addSubview(titleTextField)
         view.addSubview(contentTextView)
 
         // 오토레이아웃 설정
         NSLayoutConstraint.activate([
-            // titleTextField 제약 조건은 그대로 유지
+            // titleTextField 제약 조건
             titleTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             titleTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             titleTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            
+
             // contentTextView 제약 조건
             contentTextView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10),
             contentTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             contentTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             contentTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
         ])
+
+        // 편집 모드일 경우 기존 메모의 내용을 표시
+        if isEditingMemo, let memo = memoToEdit {
+            titleTextField.text = memo.title
+            contentTextView.text = memo.content
+        }
     }
     
     @objc private func cancelButtonTapped() {
@@ -86,9 +103,20 @@ class AddMemoViewController: UIViewController {
             present(alert, animated: true)
             return
         }
-        
-        let newMemo = Memo(title: title, content: content)
-        delegate?.didAddMemo(newMemo)
+
+        if isEditingMemo {
+            // 편집 모드인 경우 기존 메모를 업데이트
+            memoToEdit?.title = title
+            memoToEdit?.content = content
+            if let index = memoIndex, let updatedMemo = memoToEdit {
+                delegate?.didEditMemo(updatedMemo, at: index)
+            }
+        } else {
+            // 새 메모 추가
+            let newMemo = Memo(title: title, content: content)
+            delegate?.didAddMemo(newMemo)
+        }
+
         dismiss(animated: true, completion: nil)
     }
 }
